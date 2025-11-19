@@ -28,6 +28,16 @@ const _nav = [
     },
   },
   {
+    component: CNavItem,
+    name: 'DDashboard',
+    to: '/databricks-dashboard',
+    icon: <CIcon icon={cilSpeedometer} customClassName="nav-icon" />,
+    badge: {
+      color: 'info',
+      text: 'AWESOME',
+    },
+  },
+  {
     component: CNavTitle,
     name: 'Theme',
   },

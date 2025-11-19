@@ -240,3 +240,23 @@ CoreUI is an MIT-licensed open source project and is completely free to use. How
 copyright 2025 creativeLabs Łukasz Holeczek.   
 
 Code released under [the MIT license](https://github.com/coreui/coreui-free-react-admin-template/blob/main/LICENSE).
+
+
+# ToDos
+
+### Obtaining data from Databricks
+
+1. In order to route any API requests to the backend, you first have to add a proxy to the vite.config.mjs file
+2. Then take a look at src/api/databricks.js and follow the instructions in the code
+3. As a best practice, we create a reusable hook in src/hooks/obtainDashboardData.js follow the instructions in the code
+4. Now you can use the data obtained from databricks
+
+### Creating a dashboard
+
+⚠️ **Important:** We don't have any caching functionality implemented, therefore a query is issued to databricks on every 
+render of the ui. Therefore, when you play around with the UI and dashboard, please use src/data/nycTaxiCleand.json for 
+testing and only later enable the hook, when everything works!
+
+1. Now start using the data to create a dashboard in src/views/dashboard/DatabricksDashboard.js, please use the provided data for testing and make only a few calls to databricks.
+2. There are instructions with tips in the code but you are also welcome to just play around with the available features
+3. If you need inspiration take a look at src/views/dashboard/Dashboard.js

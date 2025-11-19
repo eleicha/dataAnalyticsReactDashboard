@@ -40,10 +40,11 @@ export default defineConfig(() => {
       extensions: ['.mjs', '.js', '.ts', '.jsx', '.tsx', '.json', '.scss'],
     },
     server: {
+      // the port at which the frontend runs
       port: 3000,
       proxy: {
-        // https://vitejs.dev/config/server-options.html
-        "/api": "http://localhost:4000",
+        // add a proxy to the backend port using the endpoint '/api': 'host:port'
+        '/api': 'http://localhost:4000',
       },
     },
   }

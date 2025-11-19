@@ -3,7 +3,18 @@ import React, { useEffect, useRef } from 'react'
 import { CChartLine } from '@coreui/react-chartjs'
 import { getStyle } from '@coreui/utils'
 
-const MainChart = () => {
+/**
+ * Creates a line chart with two lines
+ * if input params are not given, dummy values will be used
+ * @param labels array of labels
+ * @param data_one array of data values
+ * @param data_two array of data values
+ * @param data_three array of data values
+ * @param y_max max value for y-axis
+ * @returns {JSX.Element}
+ * @constructor
+ */
+const MainChart = ({ labels, data_one, data_two, data_three, y_max }) => {
   const chartRef = useRef(null)
 
   useEffect(() => {
@@ -38,7 +49,10 @@ const MainChart = () => {
         ref={chartRef}
         style={{ height: '300px', marginTop: '40px' }}
         data={{
-          labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+          labels:
+            labels === undefined
+              ? ['January', 'February', 'March', 'April', 'May', 'June', 'July']
+              : labels,
           datasets: [
             {
               label: 'My First dataset',
@@ -46,15 +60,18 @@ const MainChart = () => {
               borderColor: getStyle('--cui-info'),
               pointHoverBackgroundColor: getStyle('--cui-info'),
               borderWidth: 2,
-              data: [
-                random(50, 200),
-                random(50, 200),
-                random(50, 200),
-                random(50, 200),
-                random(50, 200),
-                random(50, 200),
-                random(50, 200),
-              ],
+              data:
+                data_one === undefined
+                  ? [
+                      random(50, 200),
+                      random(50, 200),
+                      random(50, 200),
+                      random(50, 200),
+                      random(50, 200),
+                      random(50, 200),
+                      random(50, 200),
+                    ]
+                  : data_one,
               fill: true,
             },
             {
@@ -63,15 +80,18 @@ const MainChart = () => {
               borderColor: getStyle('--cui-success'),
               pointHoverBackgroundColor: getStyle('--cui-success'),
               borderWidth: 2,
-              data: [
-                random(50, 200),
-                random(50, 200),
-                random(50, 200),
-                random(50, 200),
-                random(50, 200),
-                random(50, 200),
-                random(50, 200),
-              ],
+              data:
+                data_two === undefined
+                  ? [
+                      random(50, 200),
+                      random(50, 200),
+                      random(50, 200),
+                      random(50, 200),
+                      random(50, 200),
+                      random(50, 200),
+                      random(50, 200),
+                    ]
+                  : data_two,
             },
             {
               label: 'My Third dataset',
@@ -80,7 +100,7 @@ const MainChart = () => {
               pointHoverBackgroundColor: getStyle('--cui-danger'),
               borderWidth: 1,
               borderDash: [8, 5],
-              data: [65, 65, 65, 65, 65, 65, 65],
+              data: data_three === undefined ? [65, 65, 65, 65, 65, 65, 65] : data_three,
             },
           ],
         }}
@@ -109,7 +129,7 @@ const MainChart = () => {
               grid: {
                 color: getStyle('--cui-border-color-translucent'),
               },
-              max: 250,
+              max: y_max === undefined ? 250 : y_max,
               ticks: {
                 color: getStyle('--cui-body-color'),
                 maxTicksLimit: 5,
