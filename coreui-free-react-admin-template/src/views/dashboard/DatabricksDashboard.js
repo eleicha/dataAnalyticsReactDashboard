@@ -35,54 +35,18 @@ const DatabricksDashboard = () => {
   // through a list of objects
   // you can also use new Date().toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' })
   // to extract the time in 24hr format
-  const pickupTimes = queriedData.data.map((trip) => {
-    const date = new Date(trip.pickup_datetime)
-    return date.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' })
-  })
 
   // calculate average tip amount, you can use Math.round to round your result
   // and .reduce((sum, item) => ... ) to calculate a sum
   // do the same for total_amount, tolls_amount, and congestion_surcharge
-  const averageTipAmount = Math.round(
-    queriedData.data.reduce((sum, item) => sum + item.tip_amount, 0) / queriedData.data.length,
-  )
-  const averageTotalAmount = Math.round(
-    queriedData.data.reduce((sum, item) => sum + item.total_amount, 0) / queriedData.data.length,
-  )
-  const averageTollAmount = Math.round(
-    queriedData.data.reduce((sum, item) => sum + item.tolls_amount, 0) / queriedData.data.length,
-  )
-  const averageCongestionSurcharge = Math.round(
-    queriedData.data.reduce((sum, item) => sum + item.congestion_surcharge, 0) /
-      queriedData.data.length,
-  )
+
   // obtain the maximum of total amount, you can use Math.max(...object.map((item) => item.name))
-  const maxTotalAmount = Math.max(...queriedData.data.map((item) => item.total_amount))
 
   // Create some CProgress bars; and fill them with values you calculated above
+  // look at progressExample in Dashboards.js for help, if you're stuck
   // Use Math.round() again to obtain nicer values
-  const progressExample = [
-    {
-      title: 'Average Tip Amount',
-      value: averageTipAmount,
-      percent: Math.round((averageTipAmount / averageTotalAmount) * 100),
-      color: 'success',
-    },
-    {
-      title: 'Average Total Amount',
-      value: averageTotalAmount,
-      percent: Math.round((averageTotalAmount / maxTotalAmount) * 100),
-      color: 'info',
-    },
-  ]
 
   // extract the earliest and latest pickup times to display below the chart's headline
-  const getEarliestAndLatestPickup = (data) => {
-    const pickupTimes = data.map((item) => new Date(item.pickup_datetime).getTime())
-    const earliest = new Date(Math.min(...pickupTimes)).toLocaleString('de-DE')
-    const latest = new Date(Math.max(...pickupTimes)).toLocaleString('de-DE')
-    return { earliest, latest }
-  }
 
   return (
     <>
@@ -94,24 +58,18 @@ const DatabricksDashboard = () => {
                 Taxi trips
               </h4>
               <div className="small text-body-secondary">
-                {getEarliestAndLatestPickup(queriedData.data).earliest} -{' '}
-                {getEarliestAndLatestPickup(queriedData.data).latest}
+                {/*add earliest and latest and latest pickup date*/}
               </div>
             </CCol>
             <CCol sm={7} className="d-none d-md-block"></CCol>
           </CRow>
           <MainChart
-            // Use the available input values to MainChart to fill the chart with actual values
-            // the labels should be pickup times
-            // then you can be creative with the other values
-            // I choose trip_distance, fare_amount, passenger_count
-            // you need a .map function again
-            // also, use a value that makes sense for y_max
-            labels={pickupTimes}
-            data_one={queriedData.data.map((trip) => trip.trip_distance)}
-            data_two={queriedData.data.map((trip) => trip.fare_amount)}
-            data_three={queriedData.data.map((trip) => trip.passenger_count)}
-            y_max={50}
+          /* Use the available input values to MainChart to fill the chart with actual values
+            the labels should be pickup times
+            then you can be creative with the other values
+            I choose trip_distance, fare_amount, passenger_count
+            you need a .map function again
+            also, use a value that makes sense for y_max */
           />
         </CCardBody>
         <CCardFooter>
@@ -123,21 +81,8 @@ const DatabricksDashboard = () => {
             className="mb-2 text-center"
           >
             {
-              // here the progressExample is mapped and displayed below the chart
-              progressExample.map((item, index, items) => (
-                <CCol
-                  className={classNames({
-                    'd-none d-xl-block': index + 1 === items.length,
-                  })}
-                  key={index}
-                >
-                  <div className="text-body-secondary">{item.title}</div>
-                  <div className="fw-semibold text-truncate">
-                    {item.value} ({item.percent}%)
-                  </div>
-                  <CProgress thin className="mt-2" color={item.color} value={item.percent} />
-                </CCol>
-              ))
+              // add the mapping for the progressExample here.
+              // take a look at dashboard.js and copy the appropriate code
             }
           </CRow>
         </CCardFooter>
@@ -157,7 +102,7 @@ const DatabricksDashboard = () => {
                         <div className="text-body-secondary text-truncate small">
                           Average Tip Amount
                         </div>
-                        <div className="fs-5 fw-semibold">{averageTipAmount}</div>
+                        <div className="fs-5 fw-semibold">todo</div>
                       </div>
                     </CCol>
                     <CCol xs={6}>
@@ -165,7 +110,7 @@ const DatabricksDashboard = () => {
                         <div className="text-body-secondary text-truncate small">
                           Average Total Amount
                         </div>
-                        <div className="fs-5 fw-semibold">{averageTotalAmount}</div>
+                        <div className="fs-5 fw-semibold">todo</div>
                       </div>
                     </CCol>
                   </CRow>
@@ -178,7 +123,7 @@ const DatabricksDashboard = () => {
                         <div className="text-body-secondary text-truncate small">
                           Average Toll Amount
                         </div>
-                        <div className="fs-5 fw-semibold">{averageTollAmount}</div>
+                        <div className="fs-5 fw-semibold">todo</div>
                       </div>
                     </CCol>
                     <CCol xs={6}>
@@ -186,7 +131,7 @@ const DatabricksDashboard = () => {
                         <div className="text-body-secondary text-truncate small">
                           Average Congestion Surcharge
                         </div>
-                        <div className="fs-5 fw-semibold">{averageCongestionSurcharge}</div>
+                        <div className="fs-5 fw-semibold">todo</div>
                       </div>
                     </CCol>
                   </CRow>
@@ -212,64 +157,22 @@ const DatabricksDashboard = () => {
                 <CTableHead className="text-nowrap">
                   <CTableRow>
                     <CTableHeaderCell className="bg-body-tertiary text-center">
-                      <CIcon icon={cilPeople} />
+                      <CIcon icon={null} />
                     </CTableHeaderCell>
-                    <CTableHeaderCell className="bg-body-tertiary">Pick Up</CTableHeaderCell>
+                    <CTableHeaderCell className="bg-body-tertiary">todo</CTableHeaderCell>
                     <CTableHeaderCell className="bg-body-tertiary text-center">
-                      Fare Amount
+                      todo
                     </CTableHeaderCell>
-                    <CTableHeaderCell className="bg-body-tertiary">Tip Amount</CTableHeaderCell>
+                    <CTableHeaderCell className="bg-body-tertiary">todo</CTableHeaderCell>
                     <CTableHeaderCell className="bg-body-tertiary text-center">
-                      Payment Method
+                      todo
                     </CTableHeaderCell>
-                    <CTableHeaderCell className="bg-body-tertiary">Drop Off</CTableHeaderCell>
+                    <CTableHeaderCell className="bg-body-tertiary">todo</CTableHeaderCell>
                   </CTableRow>
                 </CTableHead>
                 <CTableBody>
-                  {queriedData.data.map((item, index) => (
-                    <CTableRow v-for="item in tableItems" key={index}>
-                      <CTableDataCell className="text-center">
-                        <div className="fw-semibold">{item.vendor_id}</div>{' '}
-                      </CTableDataCell>
-                      <CTableDataCell>
-                        <div>{item.pickup_location_id}</div>
-                        <div className="small text-body-secondary text-nowrap">
-                          <span>{item.passenger_count}</span> | Time:{' '}
-                          {new Date(item.pickup_datetime).toLocaleString('de-DE')}
-                        </div>
-                      </CTableDataCell>
-                      <CTableDataCell className="text-center">
-                        <div className="fw-semibold">{item.total_amount}</div>
-                      </CTableDataCell>
-                      <CTableDataCell>
-                        <div className="d-flex justify-content-between text-nowrap">
-                          <div className="fw-semibold">
-                            {Math.round((item.tip_amount / item.total_amount) * 100)}%
-                          </div>
-                        </div>
-                        <CProgress
-                          thin
-                          color={'success'}
-                          value={Math.round((item.tip_amount / item.total_amount) * 100)}
-                        />
-                      </CTableDataCell>
-                      <CTableDataCell className="text-center">
-                        <div className="fw-semibold">
-                          {item.store_and_fwd_flag === 'Y'
-                            ? 'store and forward trip'
-                            : 'no store and forward trip'}
-                        </div>
-                      </CTableDataCell>
-                      <CTableDataCell>
-                        <div className="small text-body-secondary text-nowrap">
-                          Location: {item.dropoff_location_id}
-                        </div>
-                        <div className="fw-semibold text-nowrap">
-                          Time: {new Date(item.dropoff_datetime).toLocaleString('de-DE')}
-                        </div>
-                      </CTableDataCell>
-                    </CTableRow>
-                  ))}
+                  {/* todo: add the body here; don't write this on your own, use the
+                 example in dashboard.js and adapt it accordingly*/}
                 </CTableBody>
               </CTable>
             </CCardBody>
