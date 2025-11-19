@@ -11,7 +11,6 @@ export async function fetchDatabricksData(query) {
   // the syntax is key=value
   // URLs can only contain certain characters, therefore, you should use encodeURIComponent()
   // function to ensure UTF-8 input
-  const response = await fetch(`/api/query?statement=${encodeURIComponent(query)}`)
   // return the asynchronous response to the frontend
-  return await response.json()
+  return null
 }
